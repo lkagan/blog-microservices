@@ -9,7 +9,7 @@ const PostCreate = () => {
     axios.post('http://localhost:4000/posts', { title })
       .then(res => {
           console.log(res)
-          setTitle()
+          setTitle('')
       })
       .catch(err => console.log(err));
   }
