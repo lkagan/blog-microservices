@@ -24,7 +24,7 @@ const CommentCreate = ({postId}) => {
     }
     return <div>
         <form action="" onSubmit={submit}>
-            <div className="form-group">
+            <div className="form-group mb-3">
                 <label htmlFor="">New Comment</label>
                 <input
                     type="text"
