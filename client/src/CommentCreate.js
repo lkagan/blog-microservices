@@ -1,41 +1,32 @@
-import axios from "axios";
+import { useAppContext } from "./appContext";
 import { useState } from "react";
 
-const CommentCreate = ({postId}) => {
-
+const CommentCreate = ({ post }) => {
+    const { addComment } = useAppContext();
     const [comment, setComment] = useState('');
 
-    const submit = async (e) => {
-        e.preventDefault();
-
-        if(comment.trim() === '') {
-            return;
-        }
-
-        const response = await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
-            comment
-        });
-
-        if(response.status === 200) {
-            setComment('');
-        }
-
-
-    }
-    return <div>
-        <form action="" onSubmit={submit}>
-            <div className="form-group mb-3">
-                <label htmlFor="">New Comment</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                />
-            </div>
-            <button className="btn btn-primary">Submit</button>
-        </form>
-    </div>
+    return (
+        <div>
+            <form>
+                <div className="form-group mb-3">
+                    <label htmlFor="">New Comment</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={ comment }
+                        onChange={ (e) => setComment(e.target.value) }
+                    />
+                </div>
+                <button
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={ () => addComment(post.id, comment) }
+                >
+                    Submit
+                </button>
+            </form>
+        </div>
+    );
 }
 
 export default CommentCreate;

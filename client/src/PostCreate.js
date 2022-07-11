@@ -1,21 +1,10 @@
-import axios from 'axios';
-import { useState } from "react";
+import { useAppContext } from "./appContext";
 
 const PostCreate = () => {
-  const [title, setTitle] = useState('');
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    axios.post('http://localhost:4000/posts', { title })
-      .then(res => {
-          console.log(res)
-          setTitle('')
-      })
-      .catch(err => console.log(err));
-  }
+    const { addPost, title, setTitle } = useAppContext();
 
     return <div>
-        <form action="" onSubmit={onSubmit}>
+        <form action="" >
             <div className="form-group">
                 <label htmlFor="">Title</label>
                 <input
@@ -27,7 +16,12 @@ const PostCreate = () => {
                     placeholder="Title"
                 />
             </div>
-            <button className="btn btn-primary mt-3">Submit</button>
+            <button
+                className="btn btn-primary mt-3"
+                type="button"
+                onClick={ () => addPost() }
+            >Submit
+            </button>
         </form>
     </div>;
 }
