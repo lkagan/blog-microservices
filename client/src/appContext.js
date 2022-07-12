@@ -23,16 +23,6 @@ const AppContextProvider = ({ children }) => {
         setPosts(response.data);
     }
 
-    const addComment = async (postId, comment) => {
-        if(comment.trim() === '') {
-            return;
-        }
-
-        const response = await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
-            comment
-        });
-    }
-
     return (
         <appContext.Provider
             value={ {
@@ -41,7 +31,6 @@ const AppContextProvider = ({ children }) => {
                 setTitle,
                 fetchPosts,
                 addPost,
-                addComment
             } }
         >
             { children }

@@ -1,9 +1,24 @@
-import { useAppContext } from "./appContext";
 import { useState } from "react";
+import axios from "axios";
+import { useAppContext } from "./appContext";
 
-const CommentCreate = ({ post }) => {
-    const { addComment } = useAppContext();
+const CommentCreate = ({ postId }) => {
     const [comment, setComment] = useState('');
+    const { fetchPosts } = useAppContext();
+
+    const addComment = async (comment) => {
+        if(comment.trim() === '') {
+            return;
+        }
+
+        await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+            comment
+        });
+
+        setTimeout(fetchPosts, 100);
+
+        setComment('');
+    }
 
     return (
         <div>
@@ -20,7 +35,7 @@ const CommentCreate = ({ post }) => {
                 <button
                     className="btn btn-primary"
                     type="button"
-                    onClick={ () => addComment(post.id, comment) }
+                    onClick={ () => addComment(comment) }
                 >
                     Submit
                 </button>
