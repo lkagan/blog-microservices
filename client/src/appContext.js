@@ -15,7 +15,6 @@ const AppContextProvider = ({ children }) => {
         } catch (err) {
             console.log(err);
         }
-
     }
 
     const fetchPosts = async () => {
