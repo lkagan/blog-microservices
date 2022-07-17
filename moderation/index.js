@@ -6,21 +6,25 @@ app.use(express.json());
 
 app.post('/events', async (req, res) => {
     const { type, data } = req.body;
-    console.log(`Event received: ${type}`);
+    console.log(`Event received: ${ type }`);
 
     if (type === 'CommentCreated') {
         const status = data.content.includes('orange') ? 'rejected' : 'approved';
 
-        await axios.post('http://localhost:4005/events', {
-            type: 'CommentModerated',
-            data: {
-                id: data.id,
-                postId: data.postId,
-                status,
-                content: data.content
-            }
-        });
-        console.log(`sent ${data}`);
+        try {
+            await axios.post('http://localhost:4005/events', {
+                type: 'CommentModerated',
+                data: {
+                    id: data.id,
+                    postId: data.postId,
+                    status,
+                    content: data.content
+                }
+            });
+            console.log(`sent ${ data.status }: ${ data.content }`);
+        } catch (e) {
+            console.log(e.message);
+        }
     }
 
     res.send({});

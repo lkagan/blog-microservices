@@ -5,20 +5,34 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
+const events = [];
+
 app.post('/events', async (req, res) => {
     const event = req.body;
+    events.push(event);
 
-    try {
-        await axios.post('http://localhost:4000/events', event);
-        await axios.post('http://localhost:4001/events', event);
-        await axios.post('http://localhost:4002/events', event);
-        await axios.post('http://localhost:4003/events', event);
-    } catch (e) {
-        console.log(e);
+    const services = [
+        'http://localhost:4000/events',
+        'http://localhost:4001/events',
+        'http://localhost:4003/events',
+        'http://localhost:4002/events',
+    ];
+
+    for (service of services) {
+        try {
+            await axios.post(service, event);
+        } catch (e) {
+            console.log(`Error: ${e.message}`);
+            console.log(`Error sending ${event.type} to ${service}`);
+        }
     }
 
     res.status(204).send();
 });
+
+app.get('/events', (req, res) => {
+    return res.send(events);
+})
 
 app.listen(4005, () => {
     console.log('Listening on 4005');
