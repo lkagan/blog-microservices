@@ -1,8 +1,19 @@
+# Kubernetes api is extensible.  We can define our own objects and tell this
+# config file to look at that apiVersion.  'v1' is vanilla Kubernetes.
 apiVersion: v1
+
 kind: Pod
+
+# Config options for the object we're creating. This pod will be called 'posts'
+# and shows up with `kubectl get pods`.
 metadata:
   name: posts
+
+
 spec:
+    # This is the only requred value.
     containers:
+      # Doesn't need to be same name as metadata, and can't be when more than one
+      # container exists.
       - name: posts
         image: lkagan/posts:0.0.1
