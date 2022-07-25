@@ -1,0 +1,26 @@
+# Kubernetes api is extensible.  We can define our own objects and tell this
+# config file to look at that apiVersion.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1
+
+  # Select pods with the label 'app: posts' as listed under
+  # template -> metadata -> labels.
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    # This can be thought of as a pod config
+    metadata:
+      labels:
+        # The key and value can be anything.  It's just a label.
+        app: posts
+    spec:
+      containers:
+        - name: posts
+          image: lkagan/posts:0.0.1
+
+
