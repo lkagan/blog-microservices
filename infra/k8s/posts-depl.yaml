@@ -21,6 +21,6 @@ spec:
     spec:
       containers:
         - name: posts
-          image: lkagan/posts:0.0.1
+          image: lkagan/posts:0.0.5
 
 
