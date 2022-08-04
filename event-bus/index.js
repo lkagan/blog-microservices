@@ -13,9 +13,9 @@ app.post('/events', async (req, res) => {
 
     const services = [
         'http://posts-clusterip-srv:4000/events',
-        // 'http://localhost:4001/events',
-        // 'http://localhost:4003/events',
-        // 'http://localhost:4002/events',
+        'http://comments-srv:4001/events',
+        'http://moderation-srv:4003/events',
+        'http://query-srv:4002/events',
     ];
 
     for (service of services) {
