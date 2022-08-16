@@ -9,7 +9,7 @@ const AppContextProvider = ({ children }) => {
 
     const addPost = async () => {
         try {
-            await axios.post('http://posts.com/posts', { title })
+            await axios.post('http://posts.com/posts/create', { title })
             setTitle('');
             setTimeout(fetchPosts, 100)
         } catch (err) {
