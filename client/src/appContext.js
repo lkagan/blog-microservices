@@ -9,7 +9,7 @@ const AppContextProvider = ({ children }) => {
 
     const addPost = async () => {
         try {
-            await axios.post('http://localhost:4000/posts', { title })
+            await axios.post('http://posts.com/posts', { title })
             setTitle('');
             setTimeout(fetchPosts, 100)
         } catch (err) {
@@ -18,7 +18,7 @@ const AppContextProvider = ({ children }) => {
     }
 
     const fetchPosts = async () => {
-        const response = await axios.get('http://localhost:4002/posts');
+        const response = await axios.get('http://posts.com/posts');
         setPosts(response.data);
     }
 
